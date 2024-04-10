@@ -3,17 +3,20 @@
 static void activate(GtkApplication *app, gpointer user_data) {
     GtkWidget *window;
     GtkWidget *vbox;
-
     GtkWidget *menubar;
     GtkWidget *fileMenu;
     GtkWidget *fileMi;
     GtkWidget *quitMi;
 
+    // Enable dark theme
+    GtkSettings *settings = gtk_settings_get_default();
+    g_object_set(settings, "gtk-application-prefer-dark-theme", TRUE, NULL);
+
     // Create a new window
     window = gtk_application_window_new(app);
     gtk_window_set_title(GTK_WINDOW(window), "macOS-like Desktop");
-    gtk_window_set_default_size(GTK_WINDOW(window), 800, 600);
-    gtk_window_fullscreen(GTK_WINDOW(window));  
+    gtk_window_fullscreen(GTK_WINDOW(window));  // Set window to fullscreen
+
     // Create a vertical box to hold the menu and possibly other widgets
     vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
     gtk_container_add(GTK_CONTAINER(window), vbox);
@@ -23,7 +26,7 @@ static void activate(GtkApplication *app, gpointer user_data) {
     fileMenu = gtk_menu_new();
 
     fileMi = gtk_menu_item_new_with_label("File");
-    quitMi = gtk_menu_item_new_with_label("Quit :3");
+    quitMi = gtk_menu_item_new_with_label("Quit");
 
     gtk_menu_item_set_submenu(GTK_MENU_ITEM(fileMi), fileMenu);
     gtk_menu_shell_append(GTK_MENU_SHELL(fileMenu), quitMi);
@@ -31,7 +34,7 @@ static void activate(GtkApplication *app, gpointer user_data) {
 
     gtk_box_pack_start(GTK_BOX(vbox), menubar, FALSE, FALSE, 0);
 
-    // Connect signals
+    // Connect the "Quit" menu item to quit the application
     g_signal_connect_swapped(G_OBJECT(quitMi), "activate", G_CALLBACK(g_application_quit), app);
 
     // Show all widgets
