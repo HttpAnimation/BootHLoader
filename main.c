@@ -1,43 +1,55 @@
 #include <gtk/gtk.h>
 
+static void on_icon_click(GtkWidget *widget, gpointer data) {
+    g_print("Icon clicked!\n");
+}
+
+static GtkWidget* create_icon(const gchar *icon_name) {
+    GtkWidget *image = gtk_image_new_from_icon_name(icon_name, GTK_ICON_SIZE_DIALOG);
+    GtkWidget *event_box = gtk_event_box_new();
+
+    gtk_container_add(GTK_CONTAINER(event_box), image);
+    g_signal_connect(G_OBJECT(event_box), "button-press-event", G_CALLBACK(on_icon_click), NULL);
+
+    gtk_widget_set_events(event_box, GDK_BUTTON_PRESS_MASK);
+    gtk_widget_show_all(event_box);
+
+    return event_box;
+}
+
 static void activate(GtkApplication *app, gpointer user_data) {
     GtkWidget *window;
     GtkWidget *vbox;
-    GtkWidget *menubar;
-    GtkWidget *fileMenu;
-    GtkWidget *fileMi;
-    GtkWidget *quitMi;
-
-    // Enable dark theme
+    GtkWidget *dock;
+    
     GtkSettings *settings = gtk_settings_get_default();
     g_object_set(settings, "gtk-application-prefer-dark-theme", TRUE, NULL);
 
-    // Create a new window
     window = gtk_application_window_new(app);
     gtk_window_set_title(GTK_WINDOW(window), "macOS-like Desktop");
-    gtk_window_fullscreen(GTK_WINDOW(window));  // Set window to fullscreen
+    gtk_window_fullscreen(GTK_WINDOW(window));
 
-    // Create a vertical box to hold the menu and possibly other widgets
     vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
     gtk_container_add(GTK_CONTAINER(window), vbox);
 
-    // Create a menu bar and append it to the box
-    menubar = gtk_menu_bar_new();
-    fileMenu = gtk_menu_new();
+    // Create a dock like macOS
+    dock = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 10);
+    gtk_box_pack_end(GTK_BOX(vbox), dock, FALSE, FALSE, 0);
+    gtk_widget_set_halign(dock, GTK_ALIGN_CENTER);
+    gtk_widget_set_valign(dock, GTK_ALIGN_END);
+    gtk_style_context_add_class(gtk_widget_get_style_context(dock), "dock");
 
-    fileMi = gtk_menu_item_new_with_label("File");
-    quitMi = gtk_menu_item_new_with_label("Quit");
+    // Add icons to the dock
+    GtkWidget *icon;
+    icon = create_icon("system-file-manager");
+    gtk_container_add(GTK_CONTAINER(dock), icon);
 
-    gtk_menu_item_set_submenu(GTK_MENU_ITEM(fileMi), fileMenu);
-    gtk_menu_shell_append(GTK_MENU_SHELL(fileMenu), quitMi);
-    gtk_menu_shell_append(GTK_MENU_SHELL(menubar), fileMi);
+    icon = create_icon("utilities-terminal");
+    gtk_container_add(GTK_CONTAINER(dock), icon);
 
-    gtk_box_pack_start(GTK_BOX(vbox), menubar, FALSE, FALSE, 0);
+    icon = create_icon("web-browser");
+    gtk_container_add(GTK_CONTAINER(dock), icon);
 
-    // Connect the "Quit" menu item to quit the application
-    g_signal_connect_swapped(G_OBJECT(quitMi), "activate", G_CALLBACK(g_application_quit), app);
-
-    // Show all widgets
     gtk_widget_show_all(window);
 }
 
