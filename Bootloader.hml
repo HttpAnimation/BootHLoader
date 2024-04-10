@@ -1,0 +1,27 @@
+[Bit:64] // The bits that are used for spacing out lines 1/16/32/64.
+[Bootable:true] // true allows the OS to boot; false will show a kernel panic.
+[KernalPanic:KP.html] // The script to go to if the bootloader fails to load.
+[EXE:index.html] // If the OS is bootable, then it will boot up this file.
+[CPU: x86_64] // The CPU architecture type: x86_64, ARM, etc.
+[RAM: 4096MB] // The amount of RAM allocated/required for the OS in MB.
+[OS_Version: 1.0.0] // The version number of the OS.
+[Locale: en_US] // The locale setting determines the OS language, formatting for dates, etc.
+[Timezone: UTC] // The timezone setting for the OS; used for clock and time-based operations.
+[GraphicsMode: 1920x1080] // Default graphics resolution.
+[MaxProcesses: 256] // Maximum number of concurrent processes allowed.
+[UserInterface: GUI] // Type of user interface (GUI or CLI).
+[Network: DHCP] // Network configuration (DHCP, static).
+[StaticIP: 192.168.1.100] // If not using DHCP, specify a static IP address.
+[SubnetMask: 255.255.255.0] // Subnet mask for the network.
+[Gateway: 192.168.1.1] // Default gateway for the network.
+[DNS: 8.8.8.8] // Primary DNS server IP address.
+[FirewallEnabled: true] // Enable or disable the firewall.
+[DebugMode: false] // Enable or disable debug mode for detailed logs.
+[RootPassword: *encrypted*] // Password for the root account, typically encrypted.
+[AutoUpdate: true] // Enable or disable automatic OS updates.
+[USBBootEnabled: true] // Allow booting from USB devices.
+[SSDTrimEnabled: true] // Enable or disable SSD TRIM support for better performance.
+[AccessibilityFeatures: true] // Enable features for users with disabilities.
+[PowerSavingMode: true] // Enable or disable power-saving features.
+[LegalNotices: "legal.txt"] // File containing legal notices and EULA information.
+[ErrorHandling: "errors/default.error"] // Script or file to handle errors.
