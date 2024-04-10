@@ -23,7 +23,7 @@ static void activate(GtkApplication *app, gpointer user_data) {
     fileMenu = gtk_menu_new();
 
     fileMi = gtk_menu_item_new_with_label("File");
-    quitMi = gtk_menu_item_new_with_label("Quit");
+    quitMi = gtk_menu_item_new_with_label("Quit :3");
 
     gtk_menu_item_set_submenu(GTK_MENU_ITEM(fileMi), fileMenu);
     gtk_menu_shell_append(GTK_MENU_SHELL(fileMenu), quitMi);
