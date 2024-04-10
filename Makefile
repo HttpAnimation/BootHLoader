@@ -6,6 +6,7 @@ all: main
 
 main: main.c
 	$(CC) -o main main.c $(CFLAGS) $(CLIBS)
+	echo "Build Date: `date`" > data.conf
 
 clean:
-	rm -f main
+	rm -f main data.conf
