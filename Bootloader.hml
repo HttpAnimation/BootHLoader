@@ -18,7 +18,6 @@
 [FirewallEnabled: true] // Enable or disable the firewall.
 [DebugMode: false] // Enable or disable debug mode for detailed logs.
 [RootPassword: *encrypted*] // Password for the root account, typically encrypted.
-[AutoUpdate: true] // Enable or disable automatic OS updates.
 [USBBootEnabled: true] // Allow booting from USB devices.
 [SSDTrimEnabled: true] // Enable or disable SSD TRIM support for better performance.
 [AccessibilityFeatures: true] // Enable features for users with disabilities.
